@@ -1,8 +1,11 @@
 package cn.wkt.com.test;
 
-import cn.wkt.com.util.UUidUtils;
 
-import java.util.List;
+import cn.wkt.com.util.DateID;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 描述: 测试生成UUID
@@ -14,28 +17,16 @@ import java.util.List;
  */
 public class TextUUID {
     public static void main(String[] args) {
-
-        //测试获取一个原生态UUid
-        String id = UUidUtils.getUUid();
-        System.out.println(id);
-
-        // 获取没有-的UUID
-        String StringId = UUidUtils.getStringUUid();
-        System.out.println(StringId);
-        //获取指定数量的原生态UUid；
-        int size = 20;
-        List<String>  ids = UUidUtils.getUUids(size);
-
-        for(String  uuid:ids){
-            System.out.println(uuid);
-        }
-
-        //获取指定数量的没有"-"UUid；
-        List<String>  stringIds = UUidUtils.getStringUUids(size);
-
-        for(String  uuid:stringIds){
-            System.out.println(uuid);
-        }
+        timer2();
     }
 
+    public static void timer2() {
+
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                DateID.dataIns= 10000;
+            }
+        }, 0, 24 * 60 * 60 * 1000, TimeUnit.MILLISECONDS);
+    }
 }
